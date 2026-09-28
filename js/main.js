@@ -6,7 +6,7 @@
 const SPRITES = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
 const art  = (id) => `${SPRITES}/other/official-artwork/${id}.png`;
 const anim = (id) => `${SPRITES}/other/showdown/${id}.gif`;
-const cryUrl = (id) => `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
+const cryUrl = (id) => `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/legacy/${id}.ogg`;
 
 const EL = {
   electric:{ c:'#F4C430', soft:'#FFF4C7', name:'Electric' },
@@ -51,7 +51,7 @@ const cryCache = {};
 function playCry(id){
   try{
     const a = cryCache[id] || (cryCache[id] = new Audio(cryUrl(id)));
-    a.volume = .28; a.currentTime = 0; a.play().catch(()=>{});
+    a.volume = .55; a.currentTime = 0; a.play().catch(()=>{});
   }catch(e){}
 }
 function hop(el){ el.classList.remove('hop'); void el.offsetWidth; el.classList.add('hop'); }
