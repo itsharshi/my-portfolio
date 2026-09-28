@@ -26,7 +26,7 @@ const MON_NAME = {
   898:'Calyrex', 792:'Lunala', 791:'Solgaleo', 384:'Rayquaza', 150:'Mewtwo',
   493:'Arceus', 483:'Dialga', 484:'Palkia', 487:'Giratina', 249:'Lugia',
   250:'Ho-Oh', 643:'Reshiram', 644:'Zekrom', 646:'Kyurem',
-  39:'Jigglypuff', 52:'Meowth', 778:'Mimikyu', 479:'Rotom',
+  12:'Butterfree', 18:'Pidgeot', 39:'Jigglypuff', 778:'Mimikyu', 479:'Rotom',
   282:'Gardevoir', 700:'Sylveon', 471:'Glaceon', 197:'Umbreon',
   470:'Leafeon', 136:'Flareon', 134:'Vaporeon'
 };
@@ -426,7 +426,7 @@ function introDecor(){
   for(let i=0;i<14;i++) html += `<span class="mote" style="left:${rnd(0,100)}%;top:${rnd(30,90)}%;--dx:${rnd(-30,60).toFixed(0)}px;--dy:${rnd(-200,-80).toFixed(0)}px;--dur:${rnd(9,17).toFixed(1)}s;--delay:${(-rnd(0,10)).toFixed(1)}s"></span>`;
   field.innerHTML = html;
 
-  const ids = mobile() ? [25,1,7,4] : [25,1,7,4,133,39,52];
+  const ids = mobile() ? [25,12,18,4] : [25,1,12,18,4,133,39];
   ids.forEach(id=>{
     const el = document.createElement('div'); el.className = 'roamer';
     el.innerHTML = `<span class="rshadow"></span><img alt="">`;
