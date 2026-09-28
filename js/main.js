@@ -6,7 +6,7 @@
 const SPRITES = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
 const art  = (id) => `${SPRITES}/other/official-artwork/${id}.png`;
 const anim = (id) => `${SPRITES}/other/showdown/${id}.gif`;
-const cryUrl = (id) => `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/legacy/${id}.ogg`;
+const cryUrl = (id) => `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
 
 const EL = {
   electric:{ c:'#F4C430', soft:'#FFF4C7', name:'Electric' },
