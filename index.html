@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en" data-el="electric">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Harshith Geddada · AI Engineer Portfolio</title>
+<meta name="description" content="Harshith Geddada — AI Engineer. A Pokémon-inspired portfolio showcasing AI/ML, LLM Agents and Deep Learning projects.">
+<meta name="theme-color" content="#CFEAF8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23fff' stroke='%231F2340' stroke-width='3'/%3E%3Cpath d='M2 16a14 14 0 0 1 28 0z' fill='%23E3350D' stroke='%231F2340' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23fff' stroke='%231F2340' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pixelify+Sans:wght@500;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="intro-on">
+
+<!-- ================= INTRO: tall grass + Poké Ball ================= -->
+<div class="intro" id="intro">
+  <div class="intro-field" id="introField" aria-hidden="true"></div>
+  <div class="intro-inner">
+    <p class="intro-title"><span class="mini-ball"></span>Harshith Geddada · Portfolio</p>
+    <div class="ball-stage">
+      <div class="bloom" aria-hidden="true"></div>
+      <button class="pokeball" id="pokeball" aria-label="Open the Poké Ball and enter the portfolio">
+        <span class="pb-top"></span><span class="pb-bottom"></span><span class="pb-band"></span>
+        <span class="pb-button"></span><span class="pb-shine"></span><span class="pb-sparkle"></span>
+      </button>
+    </div>
+    <p class="hint" id="introHint">Tap the Poké Ball to meet Harshith</p>
+  </div>
+  <button class="intro-skip" id="introSkip">Skip intro <span aria-hidden="true">→</span></button>
+  <div class="flash" id="flash" aria-hidden="true"></div>
+</div>
+
+<!-- ================= WORLD (fixed backdrop) ================= -->
+<div class="world" aria-hidden="true">
+  <div class="world-glow"></div>
+  <span class="cloud c1"></span><span class="cloud c2"></span><span class="cloud c3"></span><span class="cloud c4"></span>
+</div>
+<canvas id="field" aria-hidden="true"></canvas>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="logo" href="#home" aria-label="Harshith Geddada, home"><span class="mini-ball"></span>Harshith G.</a>
+    <nav aria-label="Primary">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" data-sec="home">Home</a></li>
+        <li><a href="#about" data-sec="about">Journey</a></li>
+        <li><a href="#skills" data-sec="skills">Abilities</a></li>
+        <li><a href="#projects" data-sec="projects">Pokédex</a></li>
+        <li><a href="#experience" data-sec="experience">Evolution</a></li>
+        <li><a href="#contact" data-sec="contact">Contact</a></li>
+      </ul>
+      <span class="nav-pill" id="navPill" aria-hidden="true"></span>
+    </nav>
+    <div class="nav-right">
+      <a class="btn primary sm magnetic nav-cta" href="#contact">Let's connect</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ================= HERO ================= -->
+<section class="hero" id="home" data-el="electric" data-mon="25" data-env="Pallet Town">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="kicker"><span class="px">A wild AI Engineer appeared!</span></p>
+      <h1 class="display hero-name" aria-label="Harshith Geddada">
+        <span class="line"><span>Harshith</span></span>
+        <span class="line"><span>Geddada<i class="name-dot"></i></span></span>
+      </h1>
+      <div class="hero-role fade-in d1">
+        <span class="type" data-type="electric">AI Engineer</span>
+        <span class="type" data-type="grass">ML Researcher</span>
+        <span class="type" data-type="fire">LLM Agent Builder</span>
+      </div>
+      <p class="lede fade-in d2">I build production-grade AI systems — from LLM scheduling agents serving healthcare clinics to multimodal pipelines processing medical documents with 98%+ accuracy.</p>
+      <div class="hero-cta fade-in d3">
+        <a class="btn primary magnetic" href="#projects">Open my Pokédex <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn ghost magnetic" href="#about">Explore my journey</a>
+      </div>
+      <dl class="hero-stats fade-in d3">
+        <div><dt>Years training</dt><dd class="num">4+</dd></div>
+        <div><dt>Projects shipped</dt><dd class="num">10+</dd></div>
+        <div><dt>Badges earned</dt><dd class="num">8</dd></div>
+      </dl>
+    </div>
+
+    <!-- Trainer card -->
+    <div class="tcard fade-in d1" id="tcard">
+      <div class="tcard-top">
+        <span class="mini-ball"></span><span class="px">Trainer Card</span>
+        <span class="tcard-id px">IDNo. 02206</span>
+      </div>
+      <div class="tcard-scene" id="scene">
+        <span class="sun" aria-hidden="true"></span>
+        <span class="cloud s1" aria-hidden="true"></span><span class="cloud s2" aria-hidden="true"></span>
+        <div class="scene-hills" aria-hidden="true"></div>
+        <div class="scene-grass" id="sceneGrass" aria-hidden="true"></div>
+        <canvas id="sparks" aria-hidden="true"></canvas>
+        <button class="partner" id="partner" aria-label="Pikachu — tap to hear its cry">
+          <span class="partner-shadow"></span>
+          <img data-art="25" alt="" width="475" height="475">
+        </button>
+        <span class="tap-hint px" id="tapHint">Tap Pikachu!</span>
+      </div>
+      <div class="tcard-body">
+        <div class="tcard-row">
+          <div><h2 class="tcard-name">Harshith Geddada</h2><p class="tcard-role">AI Engineer · LLM Agent Builder</p></div>
+          <span class="type" data-type="electric">Electric</span>
+        </div>
+        <dl class="tcard-stats">
+          <div><dt>Partner</dt><dd>Pikachu</dd></div>
+          <div><dt>Started</dt><dd>2022</dd></div>
+          <div><dt>Region</dt><dd>Hyderabad</dd></div>
+        </dl>
+        <div class="energy">
+          <span class="px">Energy</span>
+          <div class="meter"><i id="energyBar"></i></div>
+          <b class="px" id="energyVal">32%</b>
+        </div>
+        <div class="badge-case">
+          <span class="px">Badges</span>
+          <div class="badges" id="badgeCase"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="scroll-hint" href="#about"><span class="mini-ball"></span>Scroll to begin</a>
+</section>
+
+<!-- ================= JOURNEY ================= -->
+<section class="sec journey" id="about" data-el="grass" data-mon="1" data-env="Route 1 · Grass">
+  <div class="wrap">
+    <div class="journey-top">
+      <div class="reveal">
+        <p class="kicker"><span class="px">About</span></p>
+        <h2 class="title">My journey</h2>
+        <p class="lede">From training satellite imagery models at ISRO to deploying LLM agents that automate healthcare workflows — every milestone levelled up my skills in AI and machine learning.</p>
+        <div class="xp-card">
+          <div class="lv"><small class="px">Lv.</small><span id="lvNum">1</span></div>
+          <div class="xp-bar">
+            <div class="meta"><span>Trainer level</span><span id="xpNow">0 XP</span></div>
+            <div class="track"><i id="xpFill"></i></div>
+            <div class="meta"><span>Scroll the route to earn XP</span><span>Next: Champion</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearing reveal">
+        <div class="clearing-sky" aria-hidden="true"></div>
+        <div class="clearing-ground" aria-hidden="true"></div>
+        <button class="clearing-mon mon-btn" data-cry="1" aria-label="Bulbasaur — tap to hear its cry"><img data-art="1" alt="" width="475" height="475"></button>
+        <div class="foliage" aria-hidden="true">
+          <svg viewBox="0 0 500 400" preserveAspectRatio="none">
+            <g class="leafsway" style="transform-origin:40px 400px">
+              <path d="M40 400 C30 330 10 300 -10 260 C40 290 60 330 60 400Z" fill="#5DAA4B"/>
+              <path d="M70 400 C80 320 120 290 150 270 C120 320 100 350 96 400Z" fill="#74C05E"/>
+            </g>
+            <g class="leafsway" style="transform-origin:460px 400px;animation-delay:-2s">
+              <path d="M460 400 C470 330 500 300 520 270 C480 300 450 340 440 400Z" fill="#5DAA4B"/>
+              <path d="M420 400 C400 330 360 310 340 300 C380 330 395 360 400 400Z" fill="#84CC6A"/>
+            </g>
+            <g fill="#8FD174"><ellipse cx="120" cy="388" rx="44" ry="14"/><ellipse cx="380" cy="390" rx="50" ry="12"/></g>
+            <circle cx="140" cy="366" r="6" fill="#fff"/><circle cx="140" cy="366" r="2.4" fill="#FFCB05"/>
+            <circle cx="392" cy="370" r="5" fill="#FFD6E7"/><circle cx="392" cy="370" r="2" fill="#fff"/>
+            <circle cx="360" cy="380" r="4" fill="#fff"/>
+          </svg>
+        </div>
+        <span class="clearing-tag px">Route 1</span>
+      </div>
+    </div>
+
+    <div class="route reveal" id="route">
+      <div class="route-map" aria-hidden="true">
+        <svg class="route-svg" viewBox="0 0 1000 60" preserveAspectRatio="none">
+          <path d="M40 30 H960" fill="none" stroke="#E9D9A6" stroke-width="22" stroke-linecap="round"/>
+          <path d="M40 30 H960" fill="none" stroke="rgba(31,35,64,.18)" stroke-width="2" stroke-dasharray="4 10"/>
+          <path id="routeFill" d="M40 30 H960" fill="none" stroke="var(--acc)" stroke-width="6" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        </svg>
+      </div>
+      <ol class="route-stops" id="stops"></ol>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section class="sec" id="skills" data-el="electric" data-mon="25" data-env="Ability Lab">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="kicker"><span class="px">Skills</span></p>
+        <h2 class="title">Base stats</h2>
+        <p class="lede">Levels reflect production experience — models shipped, agents deployed, and systems scaled.</p>
+      </div>
+    </div>
+    <div class="skills-grid" id="skillsGrid"></div>
+  </div>
+</section>
+
+<!-- ================= HABITATS ================= -->
+<section class="sec elements" id="elements" data-el="water" data-mon="7" data-env="Habitats" aria-label="Elemental habitats">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <h2 class="title sm">Where each skill lives</h2>
+        <p class="lede">Four habitats, four ways of building AI. Select one to step inside.</p>
+      </div>
+    </div>
+    <div class="el-row" id="elRow" role="tablist" aria-label="Habitats"></div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section class="sec projects" id="projects" data-el="water" data-mon="7" data-env="Research Lab">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="kicker"><span class="px">Projects</span></p>
+        <h2 class="title">My Pokédex</h2>
+        <p class="lede">Every entry is a project I built or led. Open one for the full case study — problem, architecture and results.</p>
+      </div>
+      <div class="dex-bar" role="group" aria-label="Filter projects by type" id="filters"></div>
+    </div>
+    <div class="dex-grid" id="dex"></div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section class="sec exp" id="experience" data-el="fire" data-mon="4" data-env="Victory Road">
+  <div class="wrap exp-grid">
+    <div class="exp-side">
+      <p class="kicker"><span class="px">Experience</span></p>
+      <h2 class="title">Evolution</h2>
+      <p class="lede">Four roles, each one a step up in scope. Scroll the trail — every milestone evolves the next form.</p>
+      <div class="evo-card">
+        <div class="exp-badge">
+          <svg class="halo" viewBox="0 0 400 400" aria-hidden="true">
+            <circle cx="200" cy="200" r="186" fill="none" stroke="rgba(31,35,64,.08)" stroke-width="6"/>
+            <circle id="expRing" cx="200" cy="200" r="186" fill="none" stroke="var(--acc)" stroke-width="6" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" transform="rotate(-90 200 200)"/>
+          </svg>
+          <div class="exp-disc" aria-hidden="true"></div>
+          <img class="exp-mon" id="expMon" data-art="4" alt="Charmander" width="475" height="475">
+          <p class="evo-msg px" id="evoMsg" aria-live="polite"></p>
+        </div>
+        <div class="evo-chain" id="evoChain"></div>
+        <div class="exp-level">
+          <div class="row"><span id="expRank">Starter</span><b id="expYear" class="num">2024</b></div>
+          <div class="meter"><i id="expBar"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="exp-track" id="expTrack">
+      <div class="exp-line" aria-hidden="true"><i id="expLine"></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POKÉDEX SCANNER (new mini-game) ================= -->
+<section class="sec scanner-sec" id="scanner" data-el="ghost" data-mon="94" data-env="Pokédex Scanner">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="kicker"><span class="px">Side quest</span></p>
+        <h2 class="title sm">Pokédex Scanner</h2>
+        <p class="lede">Point the scanner at my skills. Each scan reveals a random Pokémon that matches the tech — gotta catalog 'em all!</p>
+      </div>
+    </div>
+    <div class="scanner-grid reveal" id="scannerGrid"></div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact" data-el="fairy" data-mon="113" data-env="Pokémon Center">
+  <div class="dusk" aria-hidden="true"><span class="dusk-sun"></span></div>
+  <div class="town" aria-hidden="true">
+    <svg viewBox="0 0 1440 220" preserveAspectRatio="none">
+      <path fill="#F4B9A8" opacity=".55" d="M0 220V120c120-40 260-60 420-40s300 50 460 20 360-70 560-30v150Z"/>
+      <path fill="#E99A8F" opacity=".6" d="M0 220V160c160-30 320-20 480 0s340 30 520 0 300-40 440-20v80Z"/>
+    </svg>
+  </div>
+  <div class="center reveal">
+    <div class="center-roof" aria-hidden="true"><span class="roof-emblem"></span></div>
+    <button class="center-mon mon-btn" data-cry="113" aria-label="Chansey — tap to hear its cry"><img data-anim="113" alt="" width="96" height="96"></button>
+    <div class="center-grid">
+      <div>
+        <p class="kicker"><span class="px">Pokémon Center</span></p>
+        <h2>Ready for the next adventure?</h2>
+        <p class="lede">Let's build intelligent systems together. I'm open to AI/ML engineering opportunities and exciting collaborations.</p>
+        <div class="links">
+          <a class="link" href="mailto:harshith9189@gmail.com"><b>Email</b><span>harshith9189@gmail.com</span><i aria-hidden="true">↗</i></a>
+          <a class="link" href="https://www.linkedin.com/in/harshith-geddada" rel="noopener" target="_blank"><b>LinkedIn</b><span>/in/harshith-geddada</span><i aria-hidden="true">↗</i></a>
+          <a class="link" href="https://github.com/itsharshi" rel="noopener" target="_blank"><b>GitHub</b><span>@itsharshi</span><i aria-hidden="true">↗</i></a>
+          <a class="link" href="tel:+918977542289"><b>Phone</b><span>+91-8977542289</span><i aria-hidden="true">↗</i></a>
+        </div>
+      </div>
+      <form class="form" id="form" novalidate>
+        <div class="form-head"><span class="px">Send a message</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="field"><label for="fName">Name</label><input id="fName" name="name" autocomplete="name" placeholder="Your name" required><span class="err" aria-live="polite"></span></div>
+        <div class="field"><label for="fEmail">Email</label><input id="fEmail" name="email" type="email" autocomplete="email" placeholder="you@company.com" required><span class="err" aria-live="polite"></span></div>
+        <div class="field"><label for="fMsg">Message</label><textarea id="fMsg" name="message" placeholder="What kind of AI system are you looking to build?" required></textarea><span class="err" aria-live="polite"></span></div>
+        <button class="btn primary send magnetic" type="submit">Send message</button>
+        <p class="form-note">Opens your email app with the message ready to send.</p>
+        <div class="sent" role="status">
+          <div class="sent-ring"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg></div>
+          <strong>Message ready!</strong>
+          <span>Your email app should be open. I'll reply within two working days. We hope to see you again!</span>
+          <button class="btn ghost" type="button" id="againBtn">Write another</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATCH GAME ================= -->
+<section class="catch" id="catch" data-el="grass" data-mon="133" data-env="Tall grass" aria-labelledby="catchTitle">
+  <div class="wrap catch-in reveal">
+    <div class="catch-copy">
+      <p class="kicker"><span class="px">Side quest</span></p>
+      <h2 class="title sm" id="catchTitle">Gotta catch 'em all</h2>
+      <p class="lede">Before you go — something is rustling in the tall grass. Throw a Poké Ball and start your own collection.</p>
+      <button class="btn primary" id="throwBtn"><span class="mini-ball"></span>Throw a Poké Ball</button>
+      <p class="catch-status" id="catchStatus" aria-live="polite">The tall grass is quiet… for now.</p>
+    </div>
+    <div class="arena" id="arena">
+      <div class="arena-sky" aria-hidden="true"></div>
+      <div class="arena-pad" aria-hidden="true"></div>
+      <div class="wild" id="wild"><img alt="" id="wildImg"></div>
+      <div class="thrown" id="thrown" aria-hidden="true"><span class="mini-ball"></span></div>
+      <div class="arena-grass" id="arenaGrass" aria-hidden="true"></div>
+      <div class="catch-stars" id="catchStars" aria-hidden="true"><i></i><i></i><i></i></div>
+    </div>
+    <div class="box">
+      <div class="box-head"><span class="px">Your box</span><b class="num" id="boxCount">0</b></div>
+      <div class="box-grid" id="boxGrid"><p class="box-empty">Caught Pokémon land here.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="logo" href="#home"><span class="mini-ball"></span>Harshith G.</a>
+        <p>Thanks for exploring my world.</p>
+      </div>
+      <ul aria-label="Footer navigation">
+        <li><a href="#about">Journey</a></li><li><a href="#skills">Abilities</a></li><li><a href="#projects">Pokédex</a></li><li><a href="#experience">Evolution</a></li><li><a href="#contact">Contact</a></li>
+      </ul>
+      <ul aria-label="Social links">
+        <li><a href="mailto:harshith9189@gmail.com">Email</a></li><li><a href="https://www.linkedin.com/in/harshith-geddada" rel="noopener">LinkedIn</a></li><li><a href="https://github.com/itsharshi" rel="noopener">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Harshith Geddada. Designed and built by hand.</span>
+      <span>Pokémon © Nintendo, Game Freak &amp; The Pokémon Company. An unofficial fan project. Sprites via <a href="https://github.com/PokeAPI/sprites" rel="noopener">PokeAPI</a>.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- companion -->
+<button class="companion" id="companion" aria-label="Companion Pokémon — tap to hear its cry">
+  <span class="comp-env" id="compEnv">Pallet Town</span>
+  <span class="comp-body" id="compBody">
+    <span class="comp-aura"></span>
+    <span class="comp-float"><img id="compImg" data-anim="25" alt=""></span>
+  </span>
+  <span class="comp-shadow"></span>
+</button>
+
+<!-- case study (Pokédex device) -->
+<div class="case" id="case" role="dialog" aria-modal="true" aria-labelledby="caseTitle">
+  <div class="case-top">
+    <div class="dex-lights" aria-hidden="true"><span class="lens"></span><i></i><i></i><i></i></div>
+    <span class="px case-num" id="caseNum">#001</span>
+    <button class="close" id="caseClose" aria-label="Close case study"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="case-in">
+    <aside class="case-rail"><ol id="caseRail"></ol></aside>
+    <article id="caseBody"></article>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
