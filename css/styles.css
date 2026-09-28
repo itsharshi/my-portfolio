@@ -670,8 +670,21 @@ footer{ padding:60px 0 calc(36px + env(safe-area-inset-bottom,0px)); background:
   .exp-side{ position:relative; top:0; }
   .center-grid{ grid-template-columns:1fr; gap:44px; }
   .el-row{ flex-direction:column; height:auto; }
-  .el, .el.active{ flex:none; height:440px; }
-  .el .el-mon{ scale:1; opacity:1; filter:drop-shadow(0 20px 20px rgba(0,0,0,.2)); top:44%; width:min(240px, 60%); }
+  .el, .el.active{ flex:none; height:auto; display:flex; flex-direction:column; overflow:visible; }
+  .el-bg{ position:absolute; inset:0; border-radius:20px; }
+  .el .el-mon{
+    position:relative; left:auto; top:auto; translate:none;
+    scale:1; opacity:1;
+    filter:drop-shadow(0 16px 16px rgba(0,0,0,.2));
+    width:min(200px, 55%); height:160px; object-fit:contain;
+    margin:24px auto 0; display:block; z-index:2;
+    animation:idle 3.2s ease-in-out infinite;
+  }
+  .el-info{
+    position:relative; left:auto; right:auto; bottom:auto;
+    margin:12px 14px 14px; opacity:1; transform:none; pointer-events:auto;
+    z-index:2;
+  }
   .el:not(.active) .el-info{ opacity:1; transform:none; pointer-events:auto; }
   .el-v{ display:none; }
   .process{ grid-template-columns:1fr 1fr; }
@@ -733,8 +746,7 @@ footer{ padding:60px 0 calc(36px + env(safe-area-inset-bottom,0px)); background:
   .exp-track{ padding-left:56px; }
   .mile-marker{ left:-56px; }
   .evo-card{ padding:16px; }
-  .el, .el.active{ height:380px; }
-  .el .el-mon{ width:min(180px, 52%); top:38%; }
+  .el .el-mon{ width:min(160px, 50%); height:140px; }
   .el-info{ padding:14px 16px; }
   .el-name{ font-size:20px; }
   .case-next img{ display:none; }
