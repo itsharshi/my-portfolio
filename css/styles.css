@@ -671,7 +671,7 @@ footer{ padding:60px 0 calc(36px + env(safe-area-inset-bottom,0px)); background:
   .center-grid{ grid-template-columns:1fr; gap:44px; }
   .el-row{ flex-direction:column; height:auto; }
   .el, .el.active{ flex:none; height:440px; }
-  .el .el-mon{ scale:1; opacity:1; filter:drop-shadow(0 20px 20px rgba(0,0,0,.2)); top:36%; width:min(240px, 60%); }
+  .el .el-mon{ scale:1; opacity:1; filter:drop-shadow(0 20px 20px rgba(0,0,0,.2)); top:44%; width:min(240px, 60%); }
   .el:not(.active) .el-info{ opacity:1; transform:none; pointer-events:auto; }
   .el-v{ display:none; }
   .process{ grid-template-columns:1fr 1fr; }
@@ -733,8 +733,8 @@ footer{ padding:60px 0 calc(36px + env(safe-area-inset-bottom,0px)); background:
   .exp-track{ padding-left:56px; }
   .mile-marker{ left:-56px; }
   .evo-card{ padding:16px; }
-  .el, .el.active{ height:340px; }
-  .el .el-mon{ width:min(180px, 55%); }
+  .el, .el.active{ height:380px; }
+  .el .el-mon{ width:min(180px, 52%); top:38%; }
   .el-info{ padding:14px 16px; }
   .el-name{ font-size:20px; }
   .case-next img{ display:none; }
