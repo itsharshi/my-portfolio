@@ -947,10 +947,21 @@ function loadImg(img, id){
   });
 }
 
+let nextWildId = 1 + Math.floor(Math.random()*1025);
+
+// pre-pick first wild and show silhouette in tease banner
+function updateTeaseSilhouette(id){
+  const img = $('#teaseSilhouette');
+  if(!img) return;
+  img.onerror = ()=>{ img.onerror=null; img.src=art(id); };
+  img.src = anim(id);
+}
+updateTeaseSilhouette(nextWildId);
+
 throwBtn.addEventListener('click', async ()=>{
   if(catching) return; catching = true; throwBtn.disabled = true;
   wild.className = 'wild'; thrown.className = 'thrown'; $('#catchStars').classList.remove('go');
-  const id = 1 + Math.floor(Math.random()*1025);
+  const id = nextWildId;
   catchStatus.textContent = 'The tall grass is rustling…';
   arena.classList.add('rustle');
   const [name] = await Promise.all([monName(id), loadImg(wildImg, id), wait(1100)]);
@@ -991,6 +1002,9 @@ throwBtn.addEventListener('click', async ()=>{
     catchStatus.textContent = `${name} fled back into the grass.`;
     await wait(700);
   }
+  // pre-pick next wild and update tease silhouette
+  nextWildId = 1 + Math.floor(Math.random()*1025);
+  updateTeaseSilhouette(nextWildId);
   throwBtn.lastChild.textContent = 'Throw another';
   throwBtn.disabled = false; catching = false;
 });
@@ -998,6 +1012,61 @@ throwBtn.addEventListener('click', async ()=>{
 /* ================= NAV MOBILE ================= */
 $('#menuBtn').addEventListener('click', ()=>{ const o = nav.classList.toggle('open'); $('#menuBtn').setAttribute('aria-expanded', o); $('#menuBtn').setAttribute('aria-label', o?'Close menu':'Open menu'); });
 $$('.nav-links a').forEach(a=>a.addEventListener('click', ()=>{ nav.classList.remove('open'); $('#menuBtn').setAttribute('aria-expanded', false); }));
+
+/* ================= GRASS TEASE + BOX WIGGLE ================= */
+const grassTease = $('#grassTease');
+if(grassTease){
+  const TEASE_PHRASES = [
+    'A wild Pokémon appeared!',
+    'Something\'s hiding in the tall grass…',
+    'Who\'s that Pokémon?!',
+    'Rustling detected nearby…',
+    'A trainer wants to battle!',
+    'Quick — throw a Poké Ball!',
+    'Gotta catch \'em all!',
+    'It\'s super effective… go!',
+  ];
+  // rotate phrases only — silhouette is synced to catch game
+  function refreshPhrase(){
+    const phrase = TEASE_PHRASES[Math.floor(Math.random() * TEASE_PHRASES.length)];
+    const p = $('#teasePhrase'); if(p) p.textContent = phrase;
+  }
+  refreshPhrase();
+  setInterval(refreshPhrase, 5000);
+
+  // random drift offsets
+  const tx = () => (Math.random() > .5 ? 1 : -1) * (10 + Math.random() * 28);
+  grassTease.style.setProperty('--tx1', tx() + 'px');
+  grassTease.style.setProperty('--tx2', tx() + 'px');
+  grassTease.style.setProperty('--tx3', tx() + 'px');
+
+  // hide when user scrolls past hero
+  const heroEl = $('#home');
+  const teaseObs = new IntersectionObserver(([e]) => {
+    grassTease.style.opacity = e.isIntersecting ? '1' : '0';
+    grassTease.style.pointerEvents = e.isIntersecting ? 'auto' : 'none';
+  }, { threshold: 0.1 });
+  teaseObs.observe(heroEl);
+
+  // wiggle the throw button and box every 6s as a hint
+  const boxEl = document.querySelector('.box');
+  const throwBtnEl = $('#throwBtn');
+  function doWiggle(){
+    [boxEl, throwBtnEl].forEach(el => {
+      if(!el) return;
+      el.classList.add('wiggle');
+      setTimeout(()=>el.classList.remove('wiggle'), 500);
+    });
+  }
+  setInterval(doWiggle, 6000);
+  setTimeout(doWiggle, 2000);
+
+  // hide tease after clicked
+  grassTease.addEventListener('click', ()=>{
+    grassTease.style.opacity = '0';
+    grassTease.style.pointerEvents = 'none';
+  });
+}
 
 /* ================= THANK YOU TOAST ================= */
 function showToast(msg){
