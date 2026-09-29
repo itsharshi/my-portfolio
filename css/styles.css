@@ -599,14 +599,18 @@ h2.title.sm{ font-size:clamp(34px, 4.4vw, 60px); }
 .catch-stars.go i{ animation:starfly .8s ease-out forwards; }
 .catch-stars i:nth-child(1){ --x:-40px; --y:-50px; } .catch-stars i:nth-child(2){ --x:0; --y:-70px; } .catch-stars i:nth-child(3){ --x:40px; --y:-50px; }
 @keyframes starfly{ 0%{ opacity:1; transform:translate(0,0) scale(.3) } 100%{ opacity:0; transform:translate(var(--x), var(--y)) scale(1.1) rotate(90deg) } }
-.box{ background:#fff; border-radius:var(--r-xl); box-shadow:var(--shadow); padding:20px; display:flex; flex-direction:column; }
-.box-head{ display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--mute); margin-bottom:14px; }
+.box{ background:#fff; border-radius:var(--r-xl); box-shadow:var(--shadow); padding:20px; display:flex; flex-direction:column; overflow:hidden; }
+.box-head{ display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--mute); margin-bottom:4px; }
 .box-head b{ font-size:22px; color:var(--ink); }
-.box-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; align-content:start; flex:1; min-height:200px; }
-.box-grid .slot{ aspect-ratio:1; border-radius:14px; background:var(--paper); display:grid; place-items:center; position:relative; animation:pop .6s var(--spring); }
-.box-grid .slot img{ max-width:82%; max-height:82%; image-rendering:auto; }
+.box-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; align-content:start; max-height:340px; overflow-y:auto; padding-right:2px; }
+.box-grid::-webkit-scrollbar{ width:4px; } .box-grid::-webkit-scrollbar-track{ background:transparent; } .box-grid::-webkit-scrollbar-thumb{ background:var(--line2); border-radius:4px; }
+.box-grid .slot{ aspect-ratio:1; border-radius:14px; background:var(--paper); display:grid; place-items:center; position:relative; animation:pop .6s var(--spring); overflow:hidden; }
+.box-grid .slot img{ max-width:82%; max-height:72%; image-rendering:auto; }
 .box-grid .slot[data-name]:hover::after{ content:attr(data-name); position:absolute; bottom:calc(100% + 4px); left:50%; translate:-50% 0; font-size:12px; background:var(--ink); color:#fff; padding:3px 8px; border-radius:6px; white-space:nowrap; z-index:2; }
-.box-empty{ grid-column:1/-1; margin:auto; color:var(--mute); font-size:14px; text-align:center; }
+.box-empty{ grid-column:1/-1; margin:auto; color:var(--mute); font-size:14px; text-align:center; padding:20px 0; }
+.box-sub{ font-size:13px; color:var(--mute); margin:0 0 12px; }
+.box-live{ font-size:13px; font-weight:600; color:var(--acc); margin:10px 0 0; min-height:1.4em; text-align:center; }
+.slot-time{ position:absolute; bottom:2px; left:0; right:0; text-align:center; font-size:9px; color:var(--mute); font-family:var(--px); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:0 2px; }
 
 /* ============ POKÉDEX SCANNER ============ */
 .scanner-sec{ padding-top:40px; }
@@ -753,6 +757,17 @@ footer{ padding:60px 0 calc(36px + env(safe-area-inset-bottom,0px)); background:
   .intro-title{ font-size:13px; }
   .pokeball{ width:clamp(160px, 50vw, 220px); }
 }
+/* ============ THANK YOU TOAST ============ */
+#thankToast{
+  position:fixed; bottom:calc(32px + env(safe-area-inset-bottom,0px)); left:50%; translate:-50% 0;
+  z-index:200; background:var(--ink); color:#fff; font-size:14.5px; font-weight:600;
+  padding:13px 22px; border-radius:999px; box-shadow:0 12px 32px rgba(31,45,71,.28);
+  white-space:nowrap; pointer-events:none; opacity:0; transform:translateY(14px);
+  transition:opacity .4s var(--ease), transform .4s var(--ease);
+}
+#thankToast.toast-in{ opacity:1; transform:translateY(0); }
+#thankToast.toast-out{ opacity:0; transform:translateY(14px); }
+
 @media (prefers-reduced-motion: reduce){
   *, *::before, *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
   .hero-name .line > span{ transform:none; }
