@@ -876,17 +876,63 @@ form.addEventListener('submit', e=>{
 $('#againBtn').addEventListener('click', ()=>{ form.reset(); form.classList.remove('done'); $('#fName').focus(); });
 
 /* ================= CATCH GAME ================= */
-const BOX_KEY = 'trainer-box';
-let box = { total:0, mons:[] };
-try{ const s = JSON.parse(localStorage.getItem(BOX_KEY)); if(s && Array.isArray(s.mons)) box = s; }catch(e){}
+const BIN_ID = '6abab22fffd5d160533896d4';
+const BIN_KEY = '$2a$10$tUMbfwgS3So7ilWBHrPtaOjW6r3nluSTnEYI5PqKMqFqF5KYcQvuu';
+const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+const BIN_HEADERS = { 'Content-Type':'application/json', 'X-Access-Key': BIN_KEY };
+
+let globalBox = { catches: [] };
+
+function timeAgo(ts){
+  const s = Math.floor((Date.now() - ts) / 1000);
+  if(s < 60) return 'just now';
+  if(s < 3600) return Math.floor(s/60) + 'm ago';
+  if(s < 86400) return Math.floor(s/3600) + 'h ago';
+  return Math.floor(s/86400) + 'd ago';
+}
+
+function renderBox(){
+  const catches = globalBox.catches || [];
+  $('#boxCount').textContent = catches.length;
+  if(!catches.length){
+    $('#boxGrid').innerHTML = '<p class="box-empty">No catches yet. Be the first!</p>';
+    return;
+  }
+  $('#boxGrid').innerHTML = catches.slice(-20).reverse().map(m=>`
+    <span class="slot" data-name="${m.name}" title="${m.name} · caught ${timeAgo(m.ts)}">
+      <img src="${anim(m.id)}" alt="${m.name}" onerror="this.onerror=null;this.src='${art(m.id)}'">
+      <span class="slot-time">${timeAgo(m.ts)}</span>
+    </span>`).join('');
+}
+
+async function loadGlobalBox(){
+  try{
+    const r = await fetch(BIN_URL + '/latest', { headers: { 'X-Access-Key': BIN_KEY } });
+    const d = await r.json();
+    globalBox = d.record || { catches: [] };
+    renderBox();
+  }catch(e){}
+}
+
+async function saveGlobalBox(newEntry){
+  try{
+    // always read latest before writing to avoid overwriting others' catches
+    const r = await fetch(BIN_URL + '/latest', { headers: { 'X-Access-Key': BIN_KEY } });
+    const d = await r.json();
+    const fresh = d.record || { catches: [] };
+    fresh.catches = [...(fresh.catches || []), newEntry].slice(-50);
+    globalBox = fresh;
+    renderBox();
+    await fetch(BIN_URL, { method:'PUT', headers: BIN_HEADERS, body: JSON.stringify(globalBox) });
+  }catch(e){}
+}
+
+loadGlobalBox();
+setInterval(loadGlobalBox, 10000);
+
 const arena = $('#arena'), wild = $('#wild'), wildImg = $('#wildImg'), thrown = $('#thrown'), catchStatus = $('#catchStatus'), throwBtn = $('#throwBtn');
 let catching = false;
-function renderBox(){
-  $('#boxCount').textContent = box.total;
-  if(!box.mons.length) return;
-  $('#boxGrid').innerHTML = box.mons.slice(-12).reverse().map(m=>`<span class="slot" data-name="${m.name}"><img src="${anim(m.id)}" alt="${m.name}" onerror="this.onerror=null;this.src='${art(m.id)}'"></span>`).join('');
-}
-renderBox();
+
 async function monName(id){
   try{
     const r = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
@@ -900,6 +946,7 @@ function loadImg(img, id){
     img.src = anim(id);
   });
 }
+
 throwBtn.addEventListener('click', async ()=>{
   if(catching) return; catching = true; throwBtn.disabled = true;
   wild.className = 'wild'; thrown.className = 'thrown'; $('#catchStars').classList.remove('go');
@@ -927,9 +974,12 @@ throwBtn.addEventListener('click', async ()=>{
   if(Math.random() < .8){
     $('#catchStars').classList.add('go');
     catchStatus.textContent = `Gotcha! ${name} was caught!`;
-    box.total++; box.mons.push({ id, name }); box.mons = box.mons.slice(-24);
-    try{ localStorage.setItem(BOX_KEY, JSON.stringify(box)); }catch(e){}
-    renderBox();
+    playCry(id);
+    const entry = { id, name, ts: Date.now() };
+    saveGlobalBox(entry);
+    const live = $('#boxLive');
+    live.textContent = `A Pokémon Trainer just caught ${name}!`;
+    setTimeout(()=>{ live.textContent = ''; }, 4000);
     await wait(900);
     thrown.className = 'thrown';
   } else {
@@ -948,6 +998,46 @@ throwBtn.addEventListener('click', async ()=>{
 /* ================= NAV MOBILE ================= */
 $('#menuBtn').addEventListener('click', ()=>{ const o = nav.classList.toggle('open'); $('#menuBtn').setAttribute('aria-expanded', o); $('#menuBtn').setAttribute('aria-label', o?'Close menu':'Open menu'); });
 $$('.nav-links a').forEach(a=>a.addEventListener('click', ()=>{ nav.classList.remove('open'); $('#menuBtn').setAttribute('aria-expanded', false); }));
+
+/* ================= THANK YOU TOAST ================= */
+function showToast(msg){
+  let t = $('#thankToast');
+  if(!t){
+    t = document.createElement('div');
+    t.id = 'thankToast';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.classList.remove('toast-out');
+  t.classList.add('toast-in');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=>{ t.classList.replace('toast-in','toast-out'); }, 3800);
+}
+
+// Option 1: show toast after 25s on page (they've had a good look)
+setTimeout(()=>{
+  if(!document.hidden) showToast('Thanks for visiting, Trainer! Hope to battle together soon. 🎮');
+}, 25000);
+
+// Option 2: companion says goodbye on exit intent (mouse leaves top of screen)
+let exitShown = false;
+document.addEventListener('mouseleave', e=>{
+  if(exitShown || e.clientY > 20) return;
+  exitShown = true;
+  // bubble on companion
+  const env = $('#compEnv');
+  const prev = env.textContent;
+  env.textContent = 'Pika! Come back soon!';
+  companion.classList.add('announce','excited');
+  playCry(25);
+  setTimeout(()=>{
+    env.textContent = prev;
+    companion.classList.remove('excited');
+    setTimeout(()=>companion.classList.remove('announce'), 1900);
+  }, 2800);
+  // also show toast
+  showToast('Thanks for visiting, Trainer! Come back anytime. 👾');
+});
 
 /* ================= INIT ================= */
 addEventListener('resize', ()=>{ sizeField(); sizeSparks(); moveNavPill(); });
